@@ -17,7 +17,14 @@ Student.prototype.addMark = function (mark) {
 	}
 }
 Student.prototype.addMarks = function (...mark) {
-	this.marks = mark;
+	if (this.marks === undefined) {
+		this.marks = mark;
+
+	} else {
+		this.marks.push(...marks);
+	}
+
+
 }
 Student.prototype.getAverage = function () {
 	let sum = 0;
@@ -35,3 +42,7 @@ Student.prototype.exclude = function (reason) {
 
 
 // ваш код для остальных методов
+let student1 = new Student("Tony", "male", 37);
+student1.addMarks(3, 3, 3);
+student1.addMarks(4, 4, 4);
+console.log(student1.marks);
