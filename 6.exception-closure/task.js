@@ -3,22 +3,16 @@
 function parseCount(number) {
 	if (isNaN(Number.parseInt(number))) {
 		throw new Error('Невалидное значение')
-
-	} return +number;
+	}
+	return +number;
 }
+
 function validateCount(number) {
-
-
-
-
 	try {
 		return parseCount(number);
-
-
 	} catch (error) {
 		return error;
 	}
-
 }
 
 //Задание  №2
@@ -33,11 +27,10 @@ class Triangle {
 		}
 	}
 	getPerimeter() {
-		const perimeterTriangle = this.a + this.b + this.c;
-		return perimeterTriangle;
+		return (this.a + this.b + this.c);
 	}
 	getArea() {
-		const p = (this.a + this.b + this.c) * 0.5; //Вычисление полупериметра
+		const p = this.getPerimeter() / 2 //Вычисление полупериметра
 		const s = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c)).toFixed(3);
 		return +s;
 	}
