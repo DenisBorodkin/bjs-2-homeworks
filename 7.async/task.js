@@ -19,6 +19,10 @@ class AlarmClock {
 	}
 	getCurrentFormattedTime() {
 		let currentDate = new Date();
+		new Date().toLocaleTimeString("ru-Ru", {
+			hour: "2-digit",
+			minute: "2-digit",
+		});
 		return currentDate.getHours() + ':' + currentDate.getMinutes();
 	}
 	start() {
@@ -41,7 +45,7 @@ class AlarmClock {
 		}
 	}
 	printAlarms() {
-		this.alarmCollection.forEach(() => console.log(id + '-' + time));
+		this.alarmCollection.forEach((bell) => console.log('Будильник №' + bell.id + ' заведён  на ' + bell.time));
 	}
 
 	clearAlarms() {
