@@ -18,12 +18,11 @@ class AlarmClock {
 		return this.alarmCollection.length !== lengthBeforeFilter;
 	}
 	getCurrentFormattedTime() {
-		let currentDate = new Date();
-		new Date().toLocaleTimeString("ru-Ru", {
+		return new Date().toLocaleTimeString("ru-Ru", {
 			hour: "2-digit",
 			minute: "2-digit",
 		});
-		return currentDate.getHours() + ':' + currentDate.getMinutes();
+
 	}
 	start() {
 		if (this.timerId) {
