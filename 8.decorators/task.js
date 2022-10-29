@@ -25,8 +25,30 @@ function cachingDecoratorNew(func) {
 
 //Задание 2
 
-function debounceDecoratorNew(func) {
-	
-	
+function debounceDecoratorNew(func, delay) {
+	let allCount = 0;
+	let count = 0;
+	let timeoutId = null;
+	return function debounceWrapper(...args) {
+
+		if (timeoutId) {
+			console.log('Удалили текущий таймаут');
+			clearTimeout(timeoutId);
+		}
+		console.log('Создаём новый таймаут');
+		timeoutId = setTimeout(() => {
+			timeoutId = null;
+			console.log(func(...args));
+			console.log('Вызвали колбек')
+		}, delay)
+		debounceWrapper.history = count;
+		debounceWrapper.getHistory = () => {
+			console.log(debounceWrapper.history);
+		}
+		debounceWrapper.history = allCount;
+		debounceWrapper.getHistory = () => {
+			console.log(debounceWrapper.history);
+		}
+	}
 
 }
