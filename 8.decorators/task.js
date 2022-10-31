@@ -1,7 +1,6 @@
 //Задание 1
 
 function cachingDecoratorNew(func) {
-	debugger;
 	let cache = [];
 	function wrapper(...args) {
 		const hash = args.join(','); // получаем правильный хэш
@@ -10,7 +9,6 @@ function cachingDecoratorNew(func) {
 			console.log("Из кэша: " + objectInCache.value); // индекс нам известен, по индексу в массиве лежит объект, как получить нужное значение?
 			return "Из кэша: " + objectInCache.value;
 		}
-
 		let result = func(...args); // в кэше результата нет - придётся считать
 		cache.push({ hash, value: result }); // добавляем элемент с правильной структурой
 		if (cache.length > 5) {
@@ -26,29 +24,21 @@ function cachingDecoratorNew(func) {
 //Задание 2
 
 function debounceDecoratorNew(func, delay) {
-	let allCount = 0;
-	let count = 0;
 	let timeoutId = null;
-	return function debounceWrapper(...args) {
-
-		if (timeoutId) {
-			console.log('Удалили текущий таймаут');
-			clearTimeout(timeoutId);
+	function wrapper(...args) {
+		if (!timeoutId) {
+			func(...args);
+			wrapper.count++;
 		}
-		console.log('Создаём новый таймаут');
+		clearTimeout(timeoutId);
 		timeoutId = setTimeout(() => {
-			timeoutId = null;
-			console.log(func(...args));
-			console.log('Вызвали колбек')
+			func(...args);
+			wrapper.count++;
 		}, delay)
-		debounceWrapper.history = count;
-		debounceWrapper.getHistory = () => {
-			console.log(debounceWrapper.history);
-		}
-		debounceWrapper.history = allCount;
-		debounceWrapper.getHistory = () => {
-			console.log(debounceWrapper.history);
-		}
+		return wrapper.allCount++;
 	}
-
+	wrapper.allCount = 0;
+	wrapper.count = 0;
+	return wrapper;
 }
+
